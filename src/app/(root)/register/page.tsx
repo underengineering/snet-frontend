@@ -1,11 +1,14 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import { Api } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
+
+import { Api } from "@/lib/api";
 
 export default function Register() {
-    const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
+    const [errorMessage, setErrorMessage] = useState<string | undefined>(
+        undefined
+    );
 
     const router = useRouter();
     async function onSubmit(event: FormEvent) {
@@ -14,9 +17,11 @@ export default function Register() {
         const form = event.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        const data = Object.fromEntries(formData.entries()) as Parameters<typeof Api.register>[0];
+        const data = Object.fromEntries(formData.entries()) as Parameters<
+            typeof Api.register
+        >[0];
         const resp = await Api.register(data);
-        if (resp.isErr()) {
+        if (resp.isErr) {
             setErrorMessage(resp.data.message);
         } else {
             router.push("/login");
@@ -27,7 +32,11 @@ export default function Register() {
         <div className="flex w-full justify-center">
             <div className="flex flex-col w-full max-w-7xl justify-center">
                 <span className="self-center font-bold text-xl">Register</span>
-                <form className="p-2 flex flex-col gap-4 rounded-md shadow-md bg-secondary-bg" method="post" onSubmit={onSubmit}>
+                <form
+                    className="p-2 flex flex-col gap-4 rounded-md shadow-md bg-secondary-bg"
+                    method="post"
+                    onSubmit={onSubmit}
+                >
                     <div className="flex flex-col">
                         <label htmlFor="name">Name</label>
                         <input
@@ -51,7 +60,13 @@ export default function Register() {
                             type="email"
                             name="email"
                         />
-                        {errorMessage !== undefined ? <span className="text-primary-red">{errorMessage}</span> : <></>}
+                        {errorMessage !== undefined ? (
+                            <span className="text-primary-red">
+                                {errorMessage}
+                            </span>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="password">Password</label>
@@ -61,7 +76,10 @@ export default function Register() {
                             name="password"
                         />
                     </div>
-                    <button className="p-1 rounded-md text-white bg-btn hover:bg-btn-hover active:bg-btn-active transition-colors" type="submit">
+                    <button
+                        className="p-1 rounded-md text-white bg-btn hover:bg-btn-hover active:bg-btn-active transition-colors"
+                        type="submit"
+                    >
                         Register
                     </button>
                 </form>
