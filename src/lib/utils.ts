@@ -1,3 +1,5 @@
+import { EffectCallback, useEffect, useRef } from "react";
+
 const UINT32_MASK = 2 ** 32 - 1;
 
 // https://stackoverflow.com/questions/664014/what-integer-hash-function-are-good-that-accepts-an-integer-hash-key/12996028#12996028
@@ -19,4 +21,24 @@ export function hashFloat(state: number) {
 
 export function hashFloatRange(state: number, min: number, max: number) {
     return hashFloat(state) * (max - min) + min;
+}
+
+export function useDebounce(
+    fn: EffectCallback,
+    dep: unknown,
+    debounceInterval: number
+) {
+    const timerId = useRef<ReturnType<typeof setTimeout> | undefined>(
+        undefined
+    );
+
+    useEffect(() => {
+        if (timerId.current !== undefined) {
+            clearTimeout(timerId.current);
+        }
+
+        timerId.current = setTimeout(fn, debounceInterval);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [debounceInterval, fn, dep]);
 }

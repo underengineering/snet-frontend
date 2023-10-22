@@ -1,15 +1,18 @@
 import Image from "next/image";
 import { FC } from "react";
 
-import { Api } from "@/lib/api";
+import { AccountCircle } from "@mui/icons-material";
+
+export const AvatarSkeleton = () => {
+    return <AccountCircle className="w-[32px] h-[32px]" />;
+};
 
 interface Props {
-    user: Pick<Api.Users.IPublicUser, "avatar">;
+    hash?: string;
 }
 
-const Avatar: FC<Props> = ({ user }) => {
-    const src =
-        user.avatar !== undefined ? `/api/files/${user.avatar}` : "next.svg";
+const Avatar: FC<Props> = ({ hash }) => {
+    const src = hash !== undefined ? `/api/files/${hash}` : "next.svg";
     return (
         <Image
             className="w-[32px] h-[32px] rounded-full"

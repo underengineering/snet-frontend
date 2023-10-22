@@ -1,5 +1,6 @@
 import { FC } from "react";
 
+import Avatar from "@/components/Avatar";
 import { Api } from "@/lib/api";
 import { hashFloatRange } from "@/lib/utils";
 
@@ -17,30 +18,25 @@ export const ChatCardSkeleton: FC<{ seed: number }> = ({ seed }) => {
 };
 
 interface Props {
-    meId: string;
-    chat: Api.Chats.IChat;
+    dm: Api.DM.IDM;
     onClick?: () => void;
 }
 
-const ChatCard: FC<Props> = ({ meId, chat, onClick }) => {
-    const chatName =
-        chat.participants.length === 2
-            ? chat.participants.find((participant) => participant.id !== meId)!
-                  .name
-            : chat.participants
-                  .map((participant) => participant.name)
-                  .join(", ");
+const ChatCard: FC<Props> = ({ dm, onClick }) => {
     return (
         <a
             className="p-2 flex flex-col rounded shadow-md bg-secondary-bg w-72"
-            href={`#${chat.id}`}
+            href={`#${dm.id}`}
             onClick={onClick}
         >
-            <span className="whitespace-nowrap overflow-ellipsis">
-                {chatName}
-            </span>
-            {chat.messages.length === 1 ? (
-                <span>{chat.messages[0].content}</span>
+            <div className="flex items-center gap-2">
+                <Avatar hash={dm.participant.avatar} />
+                <span className="whitespace-nowrap overflow-ellipsis">
+                    {dm.participant.name} {dm.participant.surname}
+                </span>
+            </div>
+            {dm.messages.length === 1 ? (
+                <span>{dm.messages[0].content}</span>
             ) : (
                 <></>
             )}

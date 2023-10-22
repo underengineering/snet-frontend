@@ -121,7 +121,7 @@ export namespace Api {
             id: string;
             registeredAt: string;
             lastOnlineAt: string;
-            avatar: string;
+            avatar?: string;
             name: string;
             surname: string;
         };
@@ -132,7 +132,7 @@ export namespace Api {
             name: string;
             surname: string;
             email: string;
-            avatar: string;
+            avatar?: string;
         };
 
         export type IFriendRequest = {
@@ -155,7 +155,7 @@ export namespace Api {
         }
     }
 
-    export namespace Chats {
+    export namespace DM {
         export type IMessage = {
             id: string;
             createdAt: string;
@@ -164,15 +164,15 @@ export namespace Api {
             acknowledged: boolean;
         };
 
-        export type IChat = {
+        export type IDM = {
             id: string;
             createdAt: string;
-            participants: Users.IPublicUser[];
+            participant: Users.IPublicUser;
             messages: IMessage[];
         };
 
         export async function getAll() {
-            return await fetchApi<IChat[]>("/chats");
+            return await fetchApi<IDM[]>("/dms");
         }
 
         export async function paginate(
@@ -186,13 +186,20 @@ export namespace Api {
 
             if (limit !== undefined) querystring.limit = limit.toFixed(0);
 
-            return await fetchApi<IMessage[]>("/chats/messages", {
+            return await fetchApi<IMessage[]>("/dms/messages", {
                 querystring,
             });
         }
 
+        export async function create(participant: string) {
+            return await fetchApi<IDM>("/dms", {
+                opts: { method: "POST" },
+                json: { participant },
+            });
+        }
+
         export async function createMessage(id: string, content: string) {
-            return await fetchApi("/chats/messages", {
+            return await fetchApi("/dms/messages", {
                 opts: { method: "PUT" },
                 json: { id, content },
             });

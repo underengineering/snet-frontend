@@ -20,7 +20,7 @@ const MessageInput: FC<Props> = ({ onSubmit }) => {
                 }}
             >
                 <input
-                    className="p-1 rounded w-full bg-transparent"
+                    className="p-1 border border-highlight rounded-md w-full bg-transparent"
                     type="text"
                     placeholder="Message"
                     onChange={(event) => setContent(event.currentTarget.value)}

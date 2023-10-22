@@ -17,7 +17,7 @@ export const ChatSkeleton: FC = () => {
     );
 };
 
-function groupMessages(messages: Api.Chats.IMessage[]) {
+function groupMessages(messages: Api.DM.IMessage[]) {
     if (messages.length === 0) return [];
 
     const groups = [];
@@ -46,8 +46,6 @@ function groupMessages(messages: Api.Chats.IMessage[]) {
         groups.unshift(group);
     }
 
-    console.log("GROUPS", groups);
-
     return groups;
 }
 
@@ -58,7 +56,7 @@ function formatAuthor(author: Api.Users.IPublicUser) {
 interface Props {
     id?: string;
     meId: string;
-    messages: Api.Chats.IMessage[];
+    messages: Api.DM.IMessage[];
 }
 
 const Chat: FC<Props> = ({ id, meId, messages }) => {
@@ -78,9 +76,7 @@ const Chat: FC<Props> = ({ id, meId, messages }) => {
                                 <div className="flex flex-col gap-2">
                                     {messages[0].author.id !== meId ? (
                                         <div className="flex gap-2">
-                                            <Avatar
-                                                userId={messages[0].author.id}
-                                            />
+                                            <Avatar user={messages[0].author} />
                                             <div className="flex flex-col">
                                                 <div className="flex gap-2">
                                                     <span>
@@ -134,7 +130,7 @@ const Chat: FC<Props> = ({ id, meId, messages }) => {
             <MessageInput
                 onSubmit={async (content) => {
                     if (id === undefined) return;
-                    await Api.Chats.createMessage(id, content);
+                    await Api.DM.createMessage(id, content);
                 }}
             />
         </div>

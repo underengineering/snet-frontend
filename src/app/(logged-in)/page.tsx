@@ -16,27 +16,25 @@ export default function Home() {
         isLoading: meLoading,
     } = useSWR("users", Api.Users.me);
 
-    const [selectedChat, setSelectedChat] = useState<
-        Api.Chats.IChat | undefined
-    >();
+    const [selectedChat, setSelectedChat] = useState<Api.DM.IDM | undefined>();
 
     const [selectedChatMessages, setSelectedChatMessages] = useState<
-        Api.Chats.IMessage[] | undefined
+        Api.DM.IMessage[] | undefined
     >();
 
     const {
-        data: chats,
-        error: chatsError,
+        data: dms,
+        error: dmsError,
         isLoading: chatsLoading,
     } = useSWR("chats", async () => {
-        const chats = await Api.Chats.getAll();
+        const chats = await Api.DM.getAll();
         if (chats.isErr) return chats;
 
         const anchor = location.hash.slice(1);
         if (anchor.length > 0) {
             const chat = chats.data.find((chat) => chat.id === anchor);
             if (chat !== undefined) {
-                const messages = await Api.Chats.paginate(chat.id);
+                const messages = await Api.DM.paginate(chat.id);
                 if (messages.isOk) setSelectedChatMessages(messages.data);
 
                 setSelectedChat(chat);
@@ -49,7 +47,7 @@ export default function Home() {
     useEffect(() => {
         async function fetchData() {
             if (selectedChat === undefined) return;
-            const messages = await Api.Chats.paginate(selectedChat.id);
+            const messages = await Api.DM.paginate(selectedChat.id);
             if (messages.isOk) setSelectedChatMessages(messages.data);
         }
 
@@ -67,17 +65,16 @@ export default function Home() {
             );
         }
 
-        assert(me?.isOk && chats?.isOk);
+        assert(me?.isOk && dms?.isOk);
 
         return (
             <ul className="flex flex-col gap-1">
                 {
                     <ul className="flex flex-col">
-                        {chats!.data.map((chat, index) => (
+                        {dms!.data.map((dm, index) => (
                             <ChatCard
-                                meId={me.data.id}
-                                chat={chat}
-                                onClick={async () => setSelectedChat(chat)}
+                                dm={dm}
+                                onClick={async () => setSelectedChat(dm)}
                                 key={index}
                             />
                         ))}

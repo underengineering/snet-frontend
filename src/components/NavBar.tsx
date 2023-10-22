@@ -23,8 +23,8 @@ const NavBar = async () => {
             )}
             <nav className="">
                 <ol className="p-2 flex flex-col gap-2">
-                    <Link className="" href="/chats">
-                        <Chat /> Chats
+                    <Link className="" href="/">
+                        <Chat /> Chat
                     </Link>
                     <Link href="/friends">
                         <PeopleAlt /> Friends

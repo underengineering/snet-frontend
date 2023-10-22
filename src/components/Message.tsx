@@ -5,7 +5,7 @@ import { FC, useState } from "react";
 import { Api } from "@/lib/api";
 import { Done, DoneAll, Refresh } from "@mui/icons-material";
 
-interface Props extends Api.Chats.IMessage {
+interface Props extends Api.DM.IMessage {
     sent?: boolean;
     local: boolean;
 }
