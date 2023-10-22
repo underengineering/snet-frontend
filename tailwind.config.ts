@@ -8,20 +8,25 @@ const config: Config = {
     ],
     theme: {
         colors: {
-            primary: "#38bdf8",
-            secondary: "#7dd3fc",
+            // https://oklch.com
+            primary: "#39b2e8",
+            secondary: "#50c5fc",
 
-            "primary-red": "#ef4444",
-            "secondary-red": "#f87171",
+            transparent: "#00000000",
 
-            "primary-bg": "#e4e4e7",
-            "secondary-bg": "#fafafa",
+            "primary-red": "#e62f01",
+            "secondary-red": "#f94421",
+
+            "primary-bg": "#dedede",
+            "secondary-bg": "#eeeeee",
 
             neutral: "#374151",
+            skeleton: "#536067",
+            highlight: "#cecece",
 
-            btn: "#38bdf8",
-            "btn-hover": "#0ea5e9",
-            "btn-active": "#7dd3fc",
+            btn: "#50c5fc",
+            "btn-hover": "#39b2e8",
+            "btn-active": "#30abe1",
         },
     },
     plugins: [],

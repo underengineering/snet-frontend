@@ -41,7 +41,6 @@ export namespace Api {
         opts?: RequestInit;
         querystring?: Record<string, string>;
         json?: any;
-        ignore401?: boolean;
     };
 
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -95,10 +94,6 @@ export namespace Api {
 
         if (resp.ok) return new Ok<TResponse>(respData);
 
-        // Redirect to login page on 401
-        const ignore401 = opts !== undefined ? opts.ignore401 : false;
-        if (!ignore401 && respData?.statusCode === 401) redirect("/login");
-
         return new Err<TResponse>(respData);
     }
 
@@ -126,6 +121,7 @@ export namespace Api {
             id: string;
             registeredAt: string;
             lastOnlineAt: string;
+            avatar: string;
             name: string;
             surname: string;
         };
@@ -136,6 +132,7 @@ export namespace Api {
             name: string;
             surname: string;
             email: string;
+            avatar: string;
         };
 
         export type IFriendRequest = {
@@ -148,7 +145,7 @@ export namespace Api {
         }
 
         export async function getInfo(id: string) {
-            return await fetchApi<IPublicUser>(`/users`, {
+            return await fetchApi<IPublicUser>("/users", {
                 querystring: { id },
             });
         }
@@ -176,6 +173,29 @@ export namespace Api {
 
         export async function getAll() {
             return await fetchApi<IChat[]>("/chats");
+        }
+
+        export async function paginate(
+            id: string,
+            beforeId?: number,
+            limit?: number
+        ) {
+            let querystring: Record<string, string> = { id };
+            if (beforeId !== undefined)
+                querystring.beforeId = beforeId.toFixed(0);
+
+            if (limit !== undefined) querystring.limit = limit.toFixed(0);
+
+            return await fetchApi<IMessage[]>("/chats/messages", {
+                querystring,
+            });
+        }
+
+        export async function createMessage(id: string, content: string) {
+            return await fetchApi("/chats/messages", {
+                opts: { method: "PUT" },
+                json: { id, content },
+            });
         }
     }
 }

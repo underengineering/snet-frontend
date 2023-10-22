@@ -15,9 +15,9 @@ function isPublicUser(user: IPublicUser | IPrivateUser): user is IPublicUser {
     return (user as { lastOnlineAt?: string }).lastOnlineAt !== undefined;
 }
 
-const Profile: FC<Props> = ({ user }) => {
+const ProfileCard: FC<Props> = ({ user }) => {
     return (
-        <div className="flex gap-4">
+        <div className="px-2 rounded bg-secondary-bg flex gap-4">
             <Avatar userId={user.id} />
             <div className="flex flex-col">
                 <span className="font-bold">
@@ -35,4 +35,4 @@ const Profile: FC<Props> = ({ user }) => {
     );
 };
 
-export default Profile;
+export default ProfileCard;

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
@@ -60,13 +61,6 @@ export default function Register() {
                             type="email"
                             name="email"
                         />
-                        {errorMessage !== undefined ? (
-                            <span className="text-primary-red">
-                                {errorMessage}
-                            </span>
-                        ) : (
-                            <></>
-                        )}
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor="password">Password</label>
@@ -82,7 +76,20 @@ export default function Register() {
                     >
                         Register
                     </button>
+                    {errorMessage !== undefined ? (
+                        <span className="text-primary-red">
+                            Fail: {errorMessage}
+                        </span>
+                    ) : (
+                        <></>
+                    )}
                 </form>
+                <Link
+                    className="transition-colors text-primary hover:text-secondary underline"
+                    href="/login"
+                >
+                    Already have an account? Login
+                </Link>
             </div>
         </div>
     );

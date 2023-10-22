@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
@@ -30,7 +31,7 @@ export default function Login() {
 
     return (
         <div className="flex w-full justify-center">
-            <div className="flex flex-col w-full max-w-7xl justify-center">
+            <div className="flex flex-col gap-2 w-full max-w-7xl justify-center">
                 <span className="self-center font-bold text-xl">Login</span>
                 <form
                     className="p-2 flex flex-col gap-4 rounded-md shadow-md bg-secondary-bg"
@@ -52,13 +53,6 @@ export default function Login() {
                             type="password"
                             name="password"
                         />
-                        {errorMessage !== undefined ? (
-                            <span className="text-primary-red">
-                                {errorMessage}
-                            </span>
-                        ) : (
-                            <></>
-                        )}
                     </div>
                     <button
                         className="p-1 rounded-md text-white bg-btn hover:bg-btn-hover active:bg-btn-active transition-colors"
@@ -66,7 +60,20 @@ export default function Login() {
                     >
                         Log in
                     </button>
+                    {errorMessage !== undefined ? (
+                        <span className="text-primary-red">
+                            Fail: {errorMessage}
+                        </span>
+                    ) : (
+                        <></>
+                    )}
                 </form>
+                <Link
+                    className="transition-colors text-primary hover:text-secondary underline"
+                    href="/register"
+                >
+                    Dont have an account? Register
+                </Link>
             </div>
         </div>
     );
