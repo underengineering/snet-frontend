@@ -133,23 +133,6 @@ export namespace Api {
             avatar?: string;
         };
 
-        export type IFriendRequest = {
-            id: string;
-            user: IPublicUser;
-        };
-
-        export type IReceivedFriendRequest = {
-            id: string;
-            sender: IPublicUser;
-            sentAt: string;
-        };
-
-        export type ISentFriendRequest = {
-            id: string;
-            receiver: IPublicUser;
-            sentAt: string;
-        };
-
         export async function me() {
             return await fetchApi<IPrivateUser>("/users/me");
         }
@@ -173,34 +156,53 @@ export namespace Api {
                 querystring: { id },
             });
         }
+    }
 
-        export async function sendFriendRequest(id: string) {
-            return await fetchApi<IFriendRequest>("/users/friendRequests", {
+    export namespace Friends {
+        export type IFriendRequest = {
+            id: string;
+            user: Users.IPublicUser;
+        };
+
+        export type IReceivedFriendRequest = {
+            id: string;
+            sender: Users.IPublicUser;
+            sentAt: string;
+        };
+
+        export type ISentFriendRequest = {
+            id: string;
+            receiver: Users.IPublicUser;
+            sentAt: string;
+        };
+
+        export async function sendRequest(id: string) {
+            return await fetchApi<IFriendRequest>("/friends/me", {
                 opts: { method: "POST" },
                 json: { id },
             });
         }
 
-        export async function meFriendList() {
-            return await fetchApi<IFriendRequest[]>("/users/me/friendList");
+        export async function getAll() {
+            return await fetchApi<IFriendRequest[]>("/friends/me");
         }
 
-        export async function meFriendRequests() {
+        export async function getRequests() {
             return await fetchApi<{
                 received: IReceivedFriendRequest[];
                 sent: ISentFriendRequest[];
-            }>("/users/me/friendRequests");
+            }>("/friends/me/requests");
         }
 
-        export async function acceptFriendRequest(id: string) {
-            return await fetchApi("/users/friendRequests", {
-                opts: { method: "PUT" },
+        export async function acceptRequest(id: string) {
+            return await fetchApi("/friends/me/requests", {
+                opts: { method: "POST" },
                 json: { id },
             });
         }
 
-        export async function rejectFriendRequest(id: string) {
-            return await fetchApi("/users/friendRequests", {
+        export async function rejectRequest(id: string) {
+            return await fetchApi("/friends/me/requests", {
                 opts: { method: "DELETE" },
                 json: { id },
             });

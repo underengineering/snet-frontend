@@ -7,17 +7,12 @@ import FriendRequestList from "@/components/FriendRequestList";
 import { Api } from "@/lib/api";
 
 export default function Home() {
-    const {
-        data: friendRequests,
-        error: friendRequestsError,
-        isLoading: friendRequestsLoading,
-    } = useSWR("friendRequests", Api.Users.meFriendRequests);
+    const { data: friendRequests } = useSWR(
+        "friendRequests",
+        Api.Friends.getRequests
+    );
 
-    const {
-        data: friends,
-        error: friendsError,
-        isLoading: friendsLoading,
-    } = useSWR("friends", Api.Users.meFriendList);
+    const { data: friends } = useSWR("friends", Api.Friends.getAll);
 
     return (
         <div className="p-2 flex flex-col flex-grow box-border gap-2">

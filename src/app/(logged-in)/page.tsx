@@ -10,11 +10,7 @@ import ChatCard, { ChatCardSkeleton } from "@/components/ChatCard";
 import { Api } from "@/lib/api";
 
 export default function Home() {
-    const {
-        data: me,
-        error: meError,
-        isLoading: meLoading,
-    } = useSWR("users", Api.Users.me);
+    const { data: me, isLoading: meLoading } = useSWR("users", Api.Users.me);
 
     const [selectedChat, setSelectedChat] = useState<Api.DM.IDM | undefined>();
 
@@ -22,11 +18,7 @@ export default function Home() {
         Api.DM.IMessage[] | undefined
     >();
 
-    const {
-        data: dms,
-        error: dmsError,
-        isLoading: chatsLoading,
-    } = useSWR("chats", async () => {
+    const { data: dms, isLoading: chatsLoading } = useSWR("chats", async () => {
         const chats = await Api.DM.getAll();
         if (chats.isErr) return chats;
 

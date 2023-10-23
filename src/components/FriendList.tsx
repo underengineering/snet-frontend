@@ -38,7 +38,7 @@ export const FriendListSkeleton = () => {
 };
 
 interface Props {
-    friends: Api.Users.IFriendRequest[];
+    friends: Api.Friends.IFriendRequest[];
 }
 
 const FriendList: FC<Props> = ({ friends }) => {

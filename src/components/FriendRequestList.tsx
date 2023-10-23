@@ -5,7 +5,7 @@ import { Api } from "@/lib/api";
 import { PersonAddAlt1, PersonRemove } from "@mui/icons-material";
 
 interface Props {
-    received: Api.Users.IReceivedFriendRequest[];
+    received: Api.Friends.IReceivedFriendRequest[];
 }
 
 const FriendRequestList: FC<Props> = ({ received }) => {
@@ -38,7 +38,7 @@ const FriendRequestList: FC<Props> = ({ received }) => {
                                 <button
                                     className="p-1 max-h-8 rounded-md text-white bg-btn-green hover:bg-btn-green-hover active:bg-btn-green-active transition-colors"
                                     onClick={() =>
-                                        Api.Users.acceptFriendRequest(friend.id)
+                                        Api.Friends.acceptRequest(friend.id)
                                     }
                                 >
                                     <PersonAddAlt1 />
@@ -46,7 +46,7 @@ const FriendRequestList: FC<Props> = ({ received }) => {
                                 <button
                                     className="p-1 max-h-8 rounded-md text-white bg-btn-red hover:bg-btn-red-hover active:bg-btn-red-active transition-colors"
                                     onClick={() =>
-                                        Api.Users.rejectFriendRequest(friend.id)
+                                        Api.Friends.rejectRequest(friend.id)
                                     }
                                 >
                                     <PersonRemove />

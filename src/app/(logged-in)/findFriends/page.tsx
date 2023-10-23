@@ -1,11 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
-import useSWR from "swr";
+import { useState } from "react";
 
-import FriendList, { FriendListSkeleton } from "@/components/FriendList";
 import UserList from "@/components/UserList";
 import { Api } from "@/lib/api";
 import { useDebounce } from "@/lib/utils";
