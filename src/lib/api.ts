@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-
 export namespace Api {
     export type OkResponse = any;
     export type ErrResponse = {
@@ -140,8 +138,34 @@ export namespace Api {
             user: IPublicUser;
         };
 
+        export type IReceivedFriendRequest = {
+            id: string;
+            sender: IPublicUser;
+            sentAt: string;
+        };
+
+        export type ISentFriendRequest = {
+            id: string;
+            receiver: IPublicUser;
+            sentAt: string;
+        };
+
         export async function me() {
             return await fetchApi<IPrivateUser>("/users/me");
+        }
+
+        export async function search(
+            query: string,
+            skip?: number,
+            limit?: number
+        ) {
+            return await fetchApi<IPublicUser[]>("/users/search", {
+                querystring: {
+                    query,
+                    skip: `${skip ?? 0}`,
+                    limit: `${limit ?? 30}`,
+                },
+            });
         }
 
         export async function getInfo(id: string) {
@@ -150,8 +174,36 @@ export namespace Api {
             });
         }
 
+        export async function sendFriendRequest(id: string) {
+            return await fetchApi<IFriendRequest>("/users/friendRequests", {
+                opts: { method: "POST" },
+                json: { id },
+            });
+        }
+
         export async function meFriendList() {
             return await fetchApi<IFriendRequest[]>("/users/me/friendList");
+        }
+
+        export async function meFriendRequests() {
+            return await fetchApi<{
+                received: IReceivedFriendRequest[];
+                sent: ISentFriendRequest[];
+            }>("/users/me/friendRequests");
+        }
+
+        export async function acceptFriendRequest(id: string) {
+            return await fetchApi("/users/friendRequests", {
+                opts: { method: "PUT" },
+                json: { id },
+            });
+        }
+
+        export async function rejectFriendRequest(id: string) {
+            return await fetchApi("/users/friendRequests", {
+                opts: { method: "DELETE" },
+                json: { id },
+            });
         }
     }
 

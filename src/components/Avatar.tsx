@@ -4,7 +4,7 @@ import { FC } from "react";
 import { AccountCircle } from "@mui/icons-material";
 
 export const AvatarSkeleton = () => {
-    return <AccountCircle className="w-[32px] h-[32px]" />;
+    return <AccountCircle className="min-w-[32px] min-h-[32px]" />;
 };
 
 interface Props {

@@ -14,8 +14,8 @@ const config: Config = {
 
             transparent: "#00000000",
 
-            "primary-red": "#e62f01",
-            "secondary-red": "#f94421",
+            "primary-red": "#d73818",
+            "secondary-red": "#e54728",
 
             "primary-bg": "#dedede",
             "secondary-bg": "#eeeeee",
@@ -27,6 +27,14 @@ const config: Config = {
             btn: "#50c5fc",
             "btn-hover": "#39b2e8",
             "btn-active": "#30abe1",
+
+            "btn-green": "#63ca3f",
+            "btn-green-hover": "#74db51",
+            "btn-green-active": "#59c033",
+
+            "btn-red": "#de4022",
+            "btn-red-hover": "#f05234",
+            "btn-red-active": "#d63819",
         },
     },
     plugins: [],

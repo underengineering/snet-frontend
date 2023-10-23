@@ -1,4 +1,3 @@
-import assert from "assert";
 import Link from "next/link";
 
 import { Api } from "@/lib/api";
@@ -13,7 +12,7 @@ const NavBar = async () => {
         <div className="p-2 flex flex-col rounded shadow-md bg-secondary-bg w-48 h-full">
             {me.isOk ? (
                 <div className="flex flex-col items-center">
-                    <Avatar user={me.data} />
+                    <Avatar hash={me.data.avatar} />
                     <span>
                         {me.data.name} {me.data.surname}
                     </span>

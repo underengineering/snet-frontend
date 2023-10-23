@@ -40,5 +40,5 @@ export function useDebounce(
         timerId.current = setTimeout(fn, debounceInterval);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [debounceInterval, fn, dep]);
+    }, [debounceInterval, dep]);
 }

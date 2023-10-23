@@ -76,7 +76,9 @@ const Chat: FC<Props> = ({ id, meId, messages }) => {
                                 <div className="flex flex-col gap-2">
                                     {messages[0].author.id !== meId ? (
                                         <div className="flex gap-2">
-                                            <Avatar user={messages[0].author} />
+                                            <Avatar
+                                                hash={messages[0].author.avatar}
+                                            />
                                             <div className="flex flex-col">
                                                 <div className="flex gap-2">
                                                     <span>
