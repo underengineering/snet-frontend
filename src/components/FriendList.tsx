@@ -58,8 +58,6 @@ const FriendList: FC<Props> = ({ friends }) => {
         });
     }, [friends, searchQuery]);
 
-    useDebounce(() => console.log("debounce", searchQuery), searchQuery, 500);
-
     return (
         <div className="flex flex-col gap-2">
             {/* Controls */}
