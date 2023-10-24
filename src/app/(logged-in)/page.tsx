@@ -7,18 +7,18 @@ import useSWR from "swr";
 
 import Chat, { ChatSkeleton } from "@/components/Chat";
 import ChatCard, { ChatCardSkeleton } from "@/components/ChatCard";
+import ErrorCard from "@/components/ErrorCard";
 import { Api } from "@/lib/api";
 
 export default function Home() {
     const { data: me, isLoading: meLoading } = useSWR("users", Api.Users.me);
-
     const [selectedChat, setSelectedChat] = useState<Api.DM.IDM | undefined>();
 
     const [selectedChatMessages, setSelectedChatMessages] = useState<
         Api.DM.IMessage[] | undefined
     >();
 
-    const { data: dms, isLoading: chatsLoading } = useSWR("chats", async () => {
+    const { data: dms, isLoading: dmsLoading } = useSWR("chats", async () => {
         const chats = await Api.DM.getAll();
         if (chats.isErr) return chats;
 
@@ -47,20 +47,25 @@ export default function Home() {
     }, [selectedChat]);
 
     const activeListEl = (() => {
-        if (meLoading || chatsLoading) {
+        if (dmsLoading || dms === undefined) {
             return (
-                <ul className="flex flex-col gap-1">
+                <>
                     {_.range(8).map((index) => (
                         <ChatCardSkeleton seed={index} key={index} />
                     ))}
-                </ul>
+                </>
             );
         }
 
-        assert(me?.isOk && dms?.isOk);
+        if (dms.isErr)
+            return (
+                <ErrorCard
+                    message={`Error fetching /dms: ${dms?.data.message}`}
+                />
+            );
 
         return (
-            <ul className="flex flex-col gap-1">
+            <>
                 {
                     <ul className="flex flex-col">
                         {dms!.data.map((dm, index) => (
@@ -72,13 +77,13 @@ export default function Home() {
                         ))}
                     </ul>
                 }
-            </ul>
+            </>
         );
     })();
 
     return (
         <div className="p-2 flex flex-grow box-border gap-2">
-            {activeListEl}
+            <ul className="flex flex-col gap-1">{activeListEl}</ul>
             {selectedChat !== undefined ? (
                 !meLoading && me !== undefined && me.isOk ? (
                     <Chat
