@@ -8,11 +8,12 @@ interface SharedProps {
 }
 
 export const AvatarSkeleton: FC<SharedProps> = ({ size }) => {
+    const sizePx = `${size ?? 32}px`;
     return (
         <AccountCircle
             style={{
-                minWidth: `${size ?? 32}px`,
-                minHeight: `${size ?? 32}px`,
+                width: sizePx,
+                height: sizePx,
             }}
         />
     );
@@ -24,12 +25,13 @@ interface Props extends SharedProps {
 
 const Avatar: FC<Props> = ({ size, hash }) => {
     const src = hash !== undefined ? `/api/files/${hash}` : "next.svg";
+    const sizePx = `${size ?? 32}px`;
     return (
         <Image
             className="rounded-full"
             style={{
-                minWidth: `${size ?? 32}px`,
-                minHeight: `${size ?? 32}px`,
+                width: sizePx,
+                height: sizePx,
             }}
             src={src}
             alt=""
