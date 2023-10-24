@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { FC } from "react";
 
 import ProfileCard from "@/components/ProfileCard";
@@ -25,7 +24,7 @@ const UserList: FC<Props> = ({ users }) => {
                         <ProfileCard user={user} />
                         <button
                             className="p-1 rounded-md text-white bg-btn hover:bg-btn-hover active:bg-btn-active transition-colors"
-                            onClick={() => Api.Users.sendFriendRequest(user.id)}
+                            onClick={() => Api.Friends.sendRequest(user.id)}
                         >
                             <PersonAddAlt />
                         </button>
