@@ -3,23 +3,38 @@ import { FC } from "react";
 
 import { AccountCircle } from "@mui/icons-material";
 
-export const AvatarSkeleton = () => {
-    return <AccountCircle className="min-w-[32px] min-h-[32px]" />;
+interface SharedProps {
+    size?: number;
+}
+
+export const AvatarSkeleton: FC<SharedProps> = ({ size }) => {
+    return (
+        <AccountCircle
+            style={{
+                minWidth: `${size ?? 32}px`,
+                minHeight: `${size ?? 32}px`,
+            }}
+        />
+    );
 };
 
-interface Props {
+interface Props extends SharedProps {
     hash?: string;
 }
 
-const Avatar: FC<Props> = ({ hash }) => {
+const Avatar: FC<Props> = ({ size, hash }) => {
     const src = hash !== undefined ? `/api/files/${hash}` : "next.svg";
     return (
         <Image
-            className="w-[32px] h-[32px] rounded-full"
+            className="rounded-full"
+            style={{
+                minWidth: `${size ?? 32}px`,
+                minHeight: `${size ?? 32}px`,
+            }}
             src={src}
             alt=""
-            width={32}
-            height={32}
+            width={size ?? 32}
+            height={size ?? 32}
         />
     );
 };

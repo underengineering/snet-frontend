@@ -66,7 +66,7 @@ const Chat: FC<Props> = ({ id, meId, messages }) => {
     }, [messages]);
 
     return (
-        <div className="p-2 flex flex-col justify-end rounded shadow-md bg-secondary-bg w-full h-full mb-auto">
+        <div className="p-2 flex flex-col gap-2 justify-end rounded shadow-md bg-secondary-bg w-full h-full mb-auto">
             <div className="p-2 flex flex-col gap-2 overflow-y-scroll">
                 {messageGroups.flatMap((messages, index) => {
                     return (

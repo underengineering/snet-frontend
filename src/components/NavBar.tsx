@@ -23,14 +23,14 @@ const NavBar = () => {
         <div className="px-2 py-4 flex flex-col rounded shadow-md bg-secondary-bg w-48 h-full">
             {me?.isOk ? (
                 <div className="flex flex-col items-center">
-                    <Avatar hash={me.data.avatar} />
+                    <Avatar hash={me.data.avatar} size={48} />
                     <span>
                         {me.data.name} {me.data.surname}
                     </span>
                 </div>
             ) : (
                 <div className="flex flex-col items-center animate-pulse">
-                    <AvatarSkeleton />
+                    <AvatarSkeleton size={48} />
                     <div className="my-1 px-16 rounded-full bg-skeleton whitespace-nowrap overflow-ellipsis w-1/4 h-4"></div>
                 </div>
             )}

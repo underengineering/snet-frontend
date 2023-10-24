@@ -137,6 +137,17 @@ export namespace Api {
             return await fetchApi<IPrivateUser>("/users/me");
         }
 
+        export async function edit(data: {
+            name?: string;
+            surname?: string;
+            avatar?: string;
+        }) {
+            return await fetchApi<IPrivateUser>("/users/me", {
+                opts: { method: "PATCH" },
+                json: data,
+            });
+        }
+
         export async function search(
             query: string,
             skip?: number,
@@ -256,6 +267,23 @@ export namespace Api {
             return await fetchApi("/dms/messages", {
                 opts: { method: "PUT" },
                 json: { id, content },
+            });
+        }
+    }
+
+    export namespace File {
+        export async function upload(file: File) {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            return await fetchApi<{ hash: string }>("/files", {
+                opts: {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        Accept: "application/json",
+                    },
+                },
             });
         }
     }

@@ -9,6 +9,9 @@ const config: Config = {
     theme: {
         colors: {
             // https://oklch.com
+            "text-light": "#f2f2f2",
+            "text-dark": "#0b0b0b",
+
             primary: "#39b2e8",
             secondary: "#50c5fc",
 

@@ -30,8 +30,8 @@ export default function Login() {
     }
 
     return (
-        <div className="flex w-full justify-center">
-            <div className="flex flex-col gap-2 w-full max-w-7xl justify-center">
+        <div className="p-8 flex w-full justify-center">
+            <div className="flex flex-col gap-2 w-full max-w-4xl justify-center">
                 <span className="self-center font-bold text-xl">Login</span>
                 <form
                     className="p-2 flex flex-col gap-4 rounded-md shadow-md bg-secondary-bg"
